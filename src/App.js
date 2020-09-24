@@ -21,17 +21,3 @@ function App() {
 }
 
 export default App;
-
-// const mapStateToProps = (state) => ({
-//   items: state.pizzas.items
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   setPizzas: (items) => dispatch(setPizzas(items)),
-// });
-
-// const mapDispatchToProps = {
-//   setPizzas,
-// };
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
