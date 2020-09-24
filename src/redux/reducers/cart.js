@@ -77,16 +77,19 @@ const cart = (state = initialState, action) => {
 
     case 'MINUS_CART_ITEM': {
       const oldItems = state.items[action.payload].items;
-      const newItems = oldItems.length > 1 ? state.items[action.payload].items.slice(0, state.items[action.payload].items.length - 1) : oldItems;
+      const newItems = oldItems.length > 1 ? state.items[action.payload].items.splice(0, state.items[action.payload].items.length - 1) : oldItems;
+      const newState = {
+        ...state.items,
+        [action.payload]: {
+          items: newItems,
+          totalPrice: getTotalPrice(newItems),
+        }
+      }
       return {
         ...state,
-        items: {
-          ...state.items,
-          [action.payload]: {
-            items: newItems,
-            totalPrice: getTotalPrice(newItems),
-          }
-        }
+        items: newState,
+        totalPrice: Object.keys(newState).reduce((sum, key) => newState[key].totalPrice + sum, 0),
+        totalCount: Object.keys(newState).reduce((sum, key) => newState[key].items.length + sum, 0),
       };
     }
     default:
